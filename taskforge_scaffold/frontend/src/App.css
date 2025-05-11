@@ -1,0 +1,262 @@
+:root {
+  /* Colors */
+  --tf-bg: #0f1114;
+  --tf-surface: #22262b;
+  --tf-accent: #ff5a2c;
+  --tf-success: #c8f169;
+  --tf-text: #ffffff;
+  --tf-muted: #5a6b7c;
+
+  /* Spacing */
+  --space-1: 0.5rem; /* 8px */
+  --space-2: 1rem;   /* 16px */
+  --space-3: 1.5rem; /* 24px */
+  --space-4: 2rem;   /* 32px */
+
+  /* Typography */
+  --font-sans: 'IBM Plex Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--tf-bg);
+  color: var(--tf-text);
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2rem); /* Gutters */
+}
+
+.app-header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--tf-surface);
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: var(--text-lg);
+  color: var(--tf-accent);
+}
+
+.upload-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 64px - 50px); /* Full height minus header and footer */
+  padding: var(--space-4);
+}
+
+.file-upload-area {
+  border: 2px dashed var(--tf-surface);
+  border-radius: 8px;
+  padding: var(--space-4) var(--space-3); /* Increased padding slightly */
+  text-align: center;
+  background-color: var(--tf-surface);
+  margin-bottom: var(--space-3);
+  width: 100%;
+  max-width: 650px; /* Increased max-width by roughly 1/3 */
+  transition: border-color 0.3s ease-in-out; /* For border change effect */
+}
+
+.file-upload-area.has-files {
+  border-color: var(--tf-success); /* Change border color when files are present */
+  border-style: solid;
+}
+
+.file-upload-area p {
+  margin-top: 0;
+  margin-bottom: var(--space-2);
+  color: var(--tf-muted);
+}
+
+.button {
+  padding: var(--space-1) var(--space-2);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.button-primary {
+  background-color: var(--tf-accent);
+  color: var(--tf-text);
+}
+
+.button-primary:hover {
+  background-color: #e04a1a; /* Darker accent */
+}
+
+.button-secondary {
+  background-color: var(--tf-surface);
+  color: var(--tf-text);
+  border: 1px solid var(--tf-muted);
+}
+
+.button-secondary:hover {
+  background-color: #33383e; /* Darker surface */
+}
+
+.button-primary.upload-button {
+  background-color: #4a4e54; /* Darker, industrial grey */
+  color: #ffffff;
+  border: 1px solid #333;
+  box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  text-shadow: 0px -1px 0px rgba(0,0,0,0.3);
+  font-weight: bold;
+  padding: 12px 24px; /* Larger padding */
+  min-width: 200px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button-primary.upload-button:hover {
+  background-color: #5a5e64;
+  box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.2), 0px 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+.button-primary.upload-button:active {
+  background-color: #3a3e44;
+  box-shadow: inset 0px 2px 2px rgba(0,0,0,0.3);
+}
+
+.app-footer {
+  text-align: center;
+  padding: var(--space-2) 0;
+  font-size: 0.875rem;
+  color: var(--tf-muted);
+  border-top: 1px solid var(--tf-surface);
+  height: 50px;
+}
+
+/* Basic focus state for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--tf-accent);
+  outline-offset: 2px;
+}
+
+/* --- TaskBoard Component Styles --- */
+
+/* Container for the entire task board view */
+.task-board-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure it takes full viewport height */
+}
+
+/* Style the header specifically within the task board */
+.task-board-container .app-header {
+  padding: var(--space-2) clamp(1rem, 4vw, 2rem); /* Add horizontal padding consistent with .container */
+  /* You can add other specific styles like background if needed */
+}
+
+.task-board-container .app-header h1 {
+  font-size: var(--text-lg);
+  color: var(--tf-accent);
+}
+
+/* Style the main content area of the task board */
+.task-board-container main {
+  flex-grow: 1; /* Allow main content to fill available space */
+  padding: var(--space-3) clamp(1rem, 4vw, 2rem); /* Consistent padding */
+  overflow-x: auto; /* Allow horizontal scrolling for table on smaller screens */
+}
+
+/* Task Table Styling */
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-2);
+  border: 1px solid var(--tf-surface);
+}
+
+.task-table th,
+.task-table td {
+  padding: var(--space-2);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--tf-surface);
+}
+
+.task-table th {
+  background-color: var(--tf-surface); /* Header background */
+  color: var(--tf-accent);
+  font-weight: 600; /* Slightly bolder */
+  border-bottom-width: 2px; /* Thicker bottom border for header */
+}
+
+.task-table tbody tr:hover {
+  background-color: var(--tf-surface); /* Subtle hover effect */
+}
+
+/* Empty/Error State Styling (using existing class names from TaskBoard.js) */
+.empty-error-container {
+    min-height: calc(100vh - 64px - 50px); /* Header + Footer height */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.empty-error-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-4);
+}
+
+.empty-error-content h2 {
+    color: var(--tf-accent);
+    margin-bottom: var(--space-1);
+}
+
+.empty-error-content p {
+    margin-bottom: var(--space-3);
+    color: var(--tf-muted);
+}
+
+/* Standardized Error Message Styling */
+.error-message-container {
+  background-color: #ffebee; /* Light red background (Bootstrap-like) */
+  color: #c62828; /* Dark red text */
+  border: 1px solid #ef9a9a; /* Red border */
+  border-radius: 4px;
+  padding: var(--space-2) var(--space-3);
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-2);
+  text-align: center;
+  width: 100%;
+  max-width: 650px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.error-message-container p {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Task Board Specific Header Styling */
+.task-board-header-subtitle {
+  font-family: var(--font-mono); /* Industrial/technical feel */
+  font-weight: bold;
+  font-size: var(--text-lg); /* Or slightly larger if preferred */
+  color: var(--tf-muted); /* Subtler than main header */
+  margin-left: var(--space-1);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  /* Add more industrial styling like subtle text shadow or background if desired */
+} 
