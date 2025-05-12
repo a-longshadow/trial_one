@@ -7,7 +7,11 @@ from pydantic import BaseModel, Field, ValidationError, field_validator # Import
 from typing import List, Literal, Optional
 import os # Import os for environment variables
 
-app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
+# Determine the correct static folder path relative to this app.py file
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+STATIC_FOLDER = os.path.join(APP_ROOT, '..', 'frontend', 'build')
+
+app = Flask(__name__, static_folder=STATIC_FOLDER, static_url_path='/')
 
 # --- CORS Configuration ---
 # Allow all origins if in development, otherwise restrict to specified origin
