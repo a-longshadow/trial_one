@@ -58,10 +58,6 @@ def normalize_task_item(item_text):
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
-@app.route('/')
-def home():
-    return jsonify(message="TaskForge Backend is running!")
-
 @app.route('/api/upload', methods=['POST'])
 def upload_file():
     # Use getlist to handle multiple files with the same key 'file'
